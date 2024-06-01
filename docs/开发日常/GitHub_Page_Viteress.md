@@ -10,7 +10,7 @@ npm install gh-pages --save-dev
 
 这是我的目录结构
 
-```tree
+```txt
 ├─docs
 │ └─.vitepress
 │   ├─config.mjs
