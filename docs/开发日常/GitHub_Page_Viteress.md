@@ -51,3 +51,7 @@ npm run build
 ```shell
 npm run deploy
 ```
+
+## 6. 结尾
+
+emmm... 就是第 4 和第 5 步一般可以提前在 package.json 做好合并. 但是如果有静态文件的话, 就需要先打包, 然后手动把静态文件放到 dist 目录下. 这种情况就不太推荐 2 合 1 了

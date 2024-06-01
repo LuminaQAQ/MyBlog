@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 进入我的博客
-      link: /开篇
+      link: /开发日常/
     - theme: alt
       text: 去给菜鸡点个踩
       link: https://github.com/LuminaQAQ
