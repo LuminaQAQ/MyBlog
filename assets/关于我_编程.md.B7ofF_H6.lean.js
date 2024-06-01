@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,j as o}from"./chunks/framework.QBSm2tx5.js";const h=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"关于我/编程.md","filePath":"关于我/编程.md"}'),s={name:"关于我/编程.md"},n=o("p",null,"编程",-1),r=[n];function c(_,d,i,p,l,m){return a(),t("div",null,r)}const u=e(s,[["render",c]]);export{h as __pageData,u as default};

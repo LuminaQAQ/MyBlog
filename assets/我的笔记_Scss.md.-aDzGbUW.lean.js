@@ -1,1 +1,0 @@
-import{_ as s,c as i,o as a,a3 as n}from"./chunks/framework.D5qxx6u8.js";const y=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"我的笔记/Scss.md","filePath":"我的笔记/Scss.md"}'),l={name:"我的笔记/Scss.md"},h=n("",44),t=[h];function p(e,k,r,d,o,g){return a(),i("div",null,t)}const E=s(l,[["render",p]]);export{y as __pageData,E as default};
