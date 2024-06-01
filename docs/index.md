@@ -9,8 +9,27 @@ hero:
   actions:
     - theme: brand
       text: 进入我的博客
-      link: /markdown-examples
+      link: /开篇
     - theme: alt
       text: 去给菜鸡点个踩
       link: https://github.com/LuminaQAQ
+
+features:
+  - title: Feature A
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    link: /开篇
+    linkText: 开篇
+    img: /img/logo.png
+    imgDark: /img/logo.png
+    imgAlt: VitePress
+  - title: Feature B
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    link: /开篇
+    linkText: 开篇
+    img: /img/logo.png
+  - title: Feature C
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    link: /开篇
+    linkText: 开篇
+    img: /img/logo.png
 ---
