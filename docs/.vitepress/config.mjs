@@ -5,6 +5,7 @@ export default defineConfig({
   base: '/MyBlog/',
   title: "洛霖的代码记录小站",
   description: "记录一位菜鸡程序员从入门到退坑的无止境探索历程",
+  ignoreDeadLinks: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     siteTitle: false,
@@ -43,14 +44,6 @@ export default defineConfig({
             { text: 'deploy-Vitepress版(github pages)', link: '/开发日常/GitHub_Page_Viteress' },
           ]
         },
-        {
-          text: 'Vue小记',
-          items: [
-            { text: 'Vue3-获取ref节点', link: '/开发日常/Vue3获取ref节点' },
-            { text: 'Vue3-全局使用axios', link: '/开发日常/Vue3全局使用axios' },
-            { text: 'Vue3-全局使用和风天气字体图标', link: '/开发日常/Vue3使用和风天气字体图标' },
-          ]
-        },
       ],
       '/我的笔记/': [
         {
@@ -64,15 +57,24 @@ export default defineConfig({
           items: [
             { text: 'React笔记', link: '/我的笔记/React' },
             { text: 'Scss笔记', link: '/我的笔记/Scss' },
+            { text: 'Markdown笔记', link: '/我的笔记/Markdown' },
           ]
         },
         {
-          text: 'WebComponent篇',
+          text: 'WebComponent小记',
           items: [
             { text: '常用的css伪类', link: '/我的笔记/WebComponent-css伪类' },
             { text: '父修改子样式', link: '/我的笔记/WebComponent-父修改子样式' },
           ]
-        }
+        },
+        {
+          text: 'Vue小记',
+          items: [
+            { text: 'Vue3-获取ref节点', link: '/我的笔记/Vue3获取ref节点' },
+            { text: 'Vue3-全局使用axios', link: '/我的笔记/Vue3全局使用axios' },
+            { text: 'Vue3-全局使用和风天气字体图标', link: '/我的笔记/Vue3使用和风天气字体图标' },
+          ]
+        },
       ],
       '/bug制造机/': [
         {
