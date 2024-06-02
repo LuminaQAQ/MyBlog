@@ -65,6 +65,7 @@ export default defineConfig({
           items: [
             { text: '常用的css伪类', link: '/我的笔记/WebComponent-css伪类' },
             { text: '父修改子样式', link: '/我的笔记/WebComponent-父修改子样式' },
+            { text: '事件处理', link: '/我的笔记/WebComponent-事件处理' },
           ]
         },
         {

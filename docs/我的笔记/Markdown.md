@@ -44,7 +44,15 @@ console.log("Hello World!");
 `console.log("Hello World!");`
 ```
 
-## 5. 链接, < \[链接文字\](链接地址) >
+## 5. 分割线, < --- >
+
+---
+
+```md
+---
+```
+
+## 6. 链接, < \[链接文字\](链接地址) >
 
 [5.链接](http://localhost:5174/MyBlog/%E6%88%91%E7%9A%84%E7%AC%94%E8%AE%B0/Markdown.html#_5-%E9%93%BE%E6%8E%A5-%E9%93%BE%E6%8E%A5%E6%96%87%E5%AD%97-%E9%93%BE%E6%8E%A5%E5%9C%B0%E5%9D%80)
 
@@ -52,7 +60,7 @@ console.log("Hello World!");
 [5.链接](http://localhost:5174/MyBlog/%E6%88%91%E7%9A%84%E7%AC%94%E8%AE%B0/Markdown.html#\_5-%E9%93%BE%E6%8E%A5-%E9%93%BE%E6%8E%A5%E6%96%87%E5%AD%97-%E9%93%BE%E6%8E%A5%
 ```
 
-## 6. 引用, < \> + 空格 + 引用内容 >
+## 7. 引用, < \> + 空格 + 引用内容 >
 
 > 引用内容
 
@@ -60,7 +68,7 @@ console.log("Hello World!");
 > 引用内容
 ```
 
-## 7. 表格
+## 8. 表格
 
 | 表头 1 | 表头 2 | 表头 3 |
 | :----- | :----- | :----- |
@@ -72,7 +80,7 @@ console.log("Hello World!");
 | 内容 1 | 内容 2 | 内容 3 |
 ```
 
-## 8. 图片, < \!\[图片描述\]\(图片地址\) >
+## 9. 图片, < \!\[图片描述\]\(图片地址\) >
 
 ![图片描述](./assets/screenshot_Markdown/%E5%9B%BE%E7%89%87.png)
 
@@ -80,7 +88,7 @@ console.log("Hello World!");
 ![图片描述](./assets/screenshot_Markdown/%E5%9B%BE%E7%89%87.png)
 ```
 
-## 9. 视频
+## 10. 视频
 
 <video src="../video/WebComponent生产环境与上线环境不一致.mp4" controls="controls"></video>
 
