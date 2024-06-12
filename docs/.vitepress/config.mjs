@@ -58,6 +58,7 @@ export default defineConfig({
             { text: 'React笔记', link: '/我的笔记/React' },
             { text: 'Scss笔记', link: '/我的笔记/Scss' },
             { text: 'Markdown笔记', link: '/我的笔记/Markdown' },
+            { text: 'SVG笔记', link: '/我的笔记/SVG' },
           ]
         },
         {
