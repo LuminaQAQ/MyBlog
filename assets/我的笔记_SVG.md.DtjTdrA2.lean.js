@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a3 as t}from"./chunks/framework.QBSm2tx5.js";const y=JSON.parse('{"title":"SVG 笔记","description":"","frontmatter":{},"headers":[],"relativePath":"我的笔记/SVG.md","filePath":"我的笔记/SVG.md"}'),h={name:"我的笔记/SVG.md"},l=t("",81),k=[l];function n(p,e,E,d,g,r){return a(),i("div",null,k)}const F=s(h,[["render",n]]);export{y as __pageData,F as default};
