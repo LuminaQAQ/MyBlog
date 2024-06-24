@@ -59,6 +59,7 @@ export default defineConfig({
             { text: 'Scss笔记', link: '/我的笔记/Scss' },
             { text: 'Markdown笔记', link: '/我的笔记/Markdown' },
             { text: 'SVG笔记', link: '/我的笔记/SVG' },
+            { text: 'Git笔记', link: '/我的笔记/Git' },
           ]
         },
         {
