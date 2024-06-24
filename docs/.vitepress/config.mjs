@@ -77,6 +77,12 @@ export default defineConfig({
             { text: 'Vue3-全局使用和风天气字体图标', link: '/我的笔记/Vue3使用和风天气字体图标' },
           ]
         },
+        {
+          text: 'npm小记',
+          items: [
+            { text: 'npm快速切换镜像源', link: '/我的笔记/快速切换镜像源' },
+          ]
+        },
       ],
       '/bug制造机/': [
         {
