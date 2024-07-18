@@ -84,6 +84,12 @@ export default defineConfig({
             { text: 'npm快速切换镜像源', link: '/我的笔记/快速切换镜像源' },
           ]
         },
+        {
+          text: 'RN小记',
+          items: [
+            { text: 'RN同时使用Stack.Navigator和Tab.navigator', link: '/我的笔记/RN同时使用Stack.Navigator和Tab.navigator' },
+          ]
+        },
       ],
       '/bug制造机/': [
         {
