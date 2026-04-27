@@ -13,7 +13,7 @@ export default defineConfig({
       compilerOptions: {
         isCustomElement: (tag) =>
           tag.includes(
-            "这里替换成自己组件的特征, 比如我的是 com-xxxx, 那么这里就填 com-"
+            "这里替换成自己组件的特征, 比如我的是 com-xxxx, 那么这里就填 com-",
           ),
       },
     },
@@ -31,3 +31,11 @@ export default defineConfig({
 </video>
 
 ## 4. 特别注意, Vue 的事件绑定或者 Vue 的属性, 也是包括在上面提到的 set 和 get 里面的
+
+# vitest
+
+## NotSupportedError: Unexpected attributes.
+
+具体表现为 shadowRoot 为 null，导致测试全部失败。
+
+其原因可能为：注册为响应式的属性，与原生属性冲突。换名字即可。
