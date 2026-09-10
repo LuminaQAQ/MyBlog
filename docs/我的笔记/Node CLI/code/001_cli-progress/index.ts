@@ -14,11 +14,15 @@ class ProgressBar {
   barCompleteChar: string = "█";
   barIncompleteChar: string = "░";
 
+  hideCursor: boolean = true;
+
   constructor(options: ProgressBarOptions) {
     const { hideCursor, barCompleteChar, barIncompleteChar } = options;
 
     this.barCompleteChar = barCompleteChar;
     this.barIncompleteChar = barIncompleteChar;
+
+    this.hideCursor = !!hideCursor;
 
     if (hideCursor) process.stdout.write(ansiEscapes.cursorHide);
 
@@ -56,9 +60,10 @@ class ProgressBar {
     const incompleteSize = barSize - completeSize;
 
     process.stdout.write(ansiEscapes.cursorRestorePosition);
+    if (this.hideCursor) process.stdout.write(ansiEscapes.cursorHide);
     process.stdout.write(this.barCompleteChar.repeat(completeSize));
     process.stdout.write(this.barIncompleteChar.repeat(incompleteSize));
-    process.stdout.write(`${this.value} / ${this.total}`);
+    process.stdout.write(` ${this.value} / ${this.total}`);
   }
 }
 
