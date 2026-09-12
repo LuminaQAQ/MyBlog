@@ -1,27 +1,73 @@
 import readline from "readline";
-import ansiEscapes from "ansi-escapes";
-import { EOL } from "os";
+import ansiEscapes, { cursorMove } from "ansi-escapes";
+
+interface TerminalSize {
+  cols: number;
+  rows: number;
+}
 
 class ScrollList {
+  private _selectedRow: number = 0;
+
   list: string[] = [];
 
   constructor(list: string[]) {
-    process.stdout.write(ansiEscapes.cursorSavePosition);
-
     this.list = list;
+
+    process.stdout.write(ansiEscapes.cursorSavePosition);
 
     this.render();
   }
 
-  render() {
-    process.stdout.write(ansiEscapes.cursorRestorePosition);
-    process.stdout.write(this.list.join("\n"));
+  private get _getTerminalSize(): TerminalSize {
+    return {
+      cols: process.stdout.columns,
+      rows: process.stdout.rows,
+    };
   }
 
-    onKeyInput(name: string) {
-        if (name === "up") {
-          
-      }
+  clear() {
+    const { rows } = this._getTerminalSize;
+
+    for (let row = 0; row < rows; row++) {
+      process.stdout.write(ansiEscapes.cursorTo(0, row));
+      process.stdout.write(ansiEscapes.eraseLine);
+    }
+    process.stdout.write(ansiEscapes.cursorTo(0, 0));
+  }
+
+  render() {
+    this.clear();
+
+    const { rows } = this._getTerminalSize;
+
+    const visibleList = this.list.slice(
+      this._selectedRow,
+      Math.min(rows + this._selectedRow, this.list.length),
+    );
+
+    process.stdout.write(visibleList.join("\n"));
+  }
+
+  onKeyInput(name: string) {
+    if (name !== "up" && name !== "down") return;
+
+    process.stdout.write(ansiEscapes.cursorHide);
+
+    if (name === "up") {
+      this._selectedRow -= 1;
+    } else if (name === "down") {
+      this._selectedRow += 1;
+    }
+
+    const { rows } = this._getTerminalSize;
+
+    this._selectedRow = Math.max(
+      0,
+      Math.min(this._selectedRow, this.list.length - rows),
+    );
+
+    this.render();
   }
 }
 
@@ -64,9 +110,8 @@ const list = new ScrollList([
 ]);
 
 process.stdin.on("keypress", (str, key) => {
-  //   console.log(str, key);
-
   if (key.sequence === "\x03") {
+    list.clear();
     process.exit();
   }
 
