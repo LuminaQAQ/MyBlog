@@ -1,5 +1,6 @@
 import readline from "readline";
-import ansiEscapes, { cursorMove } from "ansi-escapes";
+import ansiEscapes from "ansi-escapes";
+import chalk from "chalk";
 
 interface TerminalSize {
   cols: number;
@@ -19,32 +20,50 @@ class ScrollList {
     this.render();
   }
 
-  private get _getTerminalSize(): TerminalSize {
+  /**
+   * @returns 返回当前终端视口的 可见行 和 可见列 的数量
+   */
+  private get _terminalSize(): TerminalSize {
     return {
       cols: process.stdout.columns,
       rows: process.stdout.rows,
     };
   }
 
+  /**
+   * 清除视口的所有内容
+   */
   clear() {
-    const { rows } = this._getTerminalSize;
+    const { rows } = this._terminalSize;
 
-    for (let row = 0; row < rows; row++) {
+    for (let row = rows; row >= 0; row--) {
       process.stdout.write(ansiEscapes.cursorTo(0, row));
       process.stdout.write(ansiEscapes.eraseLine);
     }
-    process.stdout.write(ansiEscapes.cursorTo(0, 0));
+  }
+
+  /**
+   * 使用 chalk 给选中行上色. `* 2` 用于简单处理中文字符差异
+   * @param text 行内容
+   * @returns 带背景的行
+   */
+  bgRow(text: string): string {
+    return chalk.bgBlue(
+      `${text}${" ".repeat(this._terminalSize.cols - text.length * 2)}`,
+    );
   }
 
   render() {
     this.clear();
 
-    const { rows } = this._getTerminalSize;
+    const { rows } = this._terminalSize;
 
-    const visibleList = this.list.slice(
-      this._selectedRow,
-      Math.min(rows + this._selectedRow, this.list.length),
-    );
+    const visibleList = this.list
+      .map((text, i) => (i === this._selectedRow ? this.bgRow(text) : text))
+      .slice(
+        Math.min(this._selectedRow, this.list.length - rows),
+        Math.min(rows + this._selectedRow, this.list.length),
+      );
 
     process.stdout.write(visibleList.join("\n"));
   }
@@ -60,11 +79,9 @@ class ScrollList {
       this._selectedRow += 1;
     }
 
-    const { rows } = this._getTerminalSize;
-
     this._selectedRow = Math.max(
       0,
-      Math.min(this._selectedRow, this.list.length - rows),
+      Math.min(this._selectedRow, this.list.length - 1),
     );
 
     this.render();
@@ -112,6 +129,7 @@ const list = new ScrollList([
 process.stdin.on("keypress", (str, key) => {
   if (key.sequence === "\x03") {
     list.clear();
+    process.stdout.write(ansiEscapes.clearTerminal);
     process.exit();
   }
 
