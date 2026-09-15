@@ -47,8 +47,6 @@ export class TextPrompt extends Prompt {
     );
 
     if (!this.value) {
-      //   process.stdout.write(ansiEscapes.cursorDown(1) + ansiEscapes.cursorTo(0));
-      //   process.stdout.write(ansiEscapes.eraseLine);
       process.stdout.write(chalk.red("请输入名字"));
     } else {
       process.stdout.write(ansiEscapes.eraseLine);
