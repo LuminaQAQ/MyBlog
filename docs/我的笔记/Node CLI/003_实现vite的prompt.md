@@ -458,10 +458,12 @@ export class SelectPrompt extends Prompt {
 此处 api 模拟 `prompt` 库.
 
 ```ts
-import { BaseQuestion } from "./Prompt";
+import { BaseQuestion, QuestionObject } from "./Prompt";
+import { SelectPrompt } from "./SelectPrompt";
 import { TextPrompt } from "./TextPrompt";
 
 const map: Record<string, any> = {
+  select: SelectPrompt,
   text: TextPrompt,
 };
 
@@ -494,8 +496,13 @@ export async function prompt(questions: BaseQuestion[]) {
 
   return answers;
 }
+```
 
-const questions: BaseQuestion[] = [
+```ts
+import { QuestionObject } from "./Prompt";
+import { prompt } from "./utils";
+
+const questions: QuestionObject[] = [
   {
     message: "你的名字?",
     type: "text",
@@ -506,6 +513,12 @@ const questions: BaseQuestion[] = [
     message: "年龄?",
     type: "text",
     name: "age",
+  },
+  {
+    message: "你的班级？",
+    type: "select",
+    name: "class",
+    choices: ["一班", "二班", "三班"],
   },
 ];
 

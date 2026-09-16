@@ -7,7 +7,7 @@
     "push": "git add . && git commit -m 'update' && git push"
   },
   "devDependencies": {
-    "@types/node": "^22.20.2",
+    "@types/node": "^22.20.3",
     "gh-pages": "^6.1.1",
     "typescript": "^7.0.2",
     "vitepress": "^1.2.2"

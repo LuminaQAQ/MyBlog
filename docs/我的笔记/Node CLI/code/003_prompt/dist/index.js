@@ -9,38 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.prompt = prompt;
-const SelectPrompt_1 = require("./SelectPrompt");
-const TextPrompt_1 = require("./TextPrompt");
-const map = {
-    select: SelectPrompt_1.SelectPrompt,
-    text: TextPrompt_1.TextPrompt,
-};
-function runPrompt(question) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const promptClass = map[question.type];
-        if (!promptClass) {
-            return null;
-        }
-        return new Promise((resolve) => {
-            const prompt = new promptClass(question);
-            prompt.render();
-            prompt.on("submit", (answer) => {
-                resolve(answer);
-            });
-        });
-    });
-}
-function prompt(questions) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const answers = {};
-        for (let i = 0; i < questions.length; i++) {
-            const name = questions[i].name;
-            answers[name] = yield runPrompt(questions[i]);
-        }
-        return answers;
-    });
-}
+const utils_1 = require("./utils");
 const questions = [
     {
         message: "你的名字?",
@@ -62,7 +31,7 @@ const questions = [
 ];
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
-        const answers = yield prompt(questions);
+        const answers = yield (0, utils_1.prompt)(questions);
         console.log(answers);
     });
 })();
