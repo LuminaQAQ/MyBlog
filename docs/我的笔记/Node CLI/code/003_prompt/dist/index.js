@@ -10,8 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.prompt = prompt;
+const SelectPrompt_1 = require("./SelectPrompt");
 const TextPrompt_1 = require("./TextPrompt");
 const map = {
+    select: SelectPrompt_1.SelectPrompt,
     text: TextPrompt_1.TextPrompt,
 };
 function runPrompt(question) {
@@ -50,6 +52,12 @@ const questions = [
         message: "年龄?",
         type: "text",
         name: "age",
+    },
+    {
+        message: "你的班级？",
+        type: "select",
+        name: "class",
+        choices: ["一班", "二班", "三班"],
     },
 ];
 (function () {

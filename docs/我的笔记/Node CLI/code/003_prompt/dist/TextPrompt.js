@@ -11,7 +11,6 @@ class TextPrompt extends Prompt_1.Prompt {
     constructor(options) {
         super();
         this.options = options;
-        this.cur = 0;
     }
     onEnterKey() {
         this.value = this.value || this.options.initial || "";
@@ -20,7 +19,7 @@ class TextPrompt extends Prompt_1.Prompt {
     onKeyInput(str, key) {
         var _a;
         if (key.name === "backspace") {
-            const str = this.value;
+            const str = String(this.value);
             this.value = str.slice(0, str.length - 1);
         }
         else {
@@ -39,12 +38,7 @@ class TextPrompt extends Prompt_1.Prompt {
             ansi_escapes_1.default.cursorTo(0) +
             ansi_escapes_1.default.eraseLine);
         if (!this.value) {
-            //   process.stdout.write(ansiEscapes.cursorDown(1) + ansiEscapes.cursorTo(0));
-            //   process.stdout.write(ansiEscapes.eraseLine);
             process.stdout.write(chalk_1.default.red("请输入名字"));
-        }
-        else {
-            process.stdout.write(ansi_escapes_1.default.eraseLine);
         }
         process.stdout.write(ansi_escapes_1.default.cursorRestorePosition);
     }

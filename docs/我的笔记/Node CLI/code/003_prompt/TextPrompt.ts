@@ -3,13 +3,11 @@ import { BaseQuestion, Prompt } from "./Prompt";
 import chalk from "chalk";
 import ansiEscapes from "ansi-escapes";
 
-interface TextQuestion extends BaseQuestion {
+export interface TextQuestion extends BaseQuestion {
   type: "text";
 }
 
 export class TextPrompt extends Prompt {
-  cur: number = 0;
-
   constructor(private options: TextQuestion) {
     super();
   }
@@ -21,7 +19,7 @@ export class TextPrompt extends Prompt {
 
   onKeyInput(str: string, key: Key): void {
     if (key.name === "backspace") {
-      const str = this.value;
+      const str = String(this.value);
       this.value = str.slice(0, str.length - 1);
     } else {
       if (!this.value) this.value = "";
@@ -48,8 +46,6 @@ export class TextPrompt extends Prompt {
 
     if (!this.value) {
       process.stdout.write(chalk.red("请输入名字"));
-    } else {
-      process.stdout.write(ansiEscapes.eraseLine);
     }
 
     process.stdout.write(ansiEscapes.cursorRestorePosition);

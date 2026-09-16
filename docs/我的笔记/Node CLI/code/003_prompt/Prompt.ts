@@ -1,17 +1,21 @@
 import readline, { Key } from "node:readline";
 import ansiEscapes from "ansi-escapes";
 import EventEmitter from "node:events";
+import { TextQuestion } from "./TextPrompt";
+import { SelectQuestion } from "./SelectPrompt";
 
 export interface BaseQuestion {
   name: string;
   message: string;
   initial?: string;
   value?: string | number;
-  type: "text";
+  type: "text" | "select";
 }
 
+export type QuestionObject = TextQuestion | SelectQuestion;
+
 export abstract class Prompt extends EventEmitter {
-  value: string = "";
+  value: string | number = "";
 
   rl: readline.Interface;
 
