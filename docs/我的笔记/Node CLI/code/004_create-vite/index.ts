@@ -1,5 +1,8 @@
 import chalk from "chalk";
 import minimist from "minimist";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import prompts from "prompts";
 
 type Framework = {
@@ -15,59 +18,6 @@ type FrameworkVariant = {
   color: Function;
   customCommand?: string;
 };
-
-const FRAMEWORKS: Framework[] = [
-  {
-    name: "vue",
-    display: "Vue",
-    color: chalk.green,
-    variants: [
-      {
-        name: "vue-ts",
-        display: "TypeScript",
-        color: chalk.blue,
-      },
-      {
-        name: "vue",
-        display: "JavaScript",
-        color: chalk.yellow,
-      },
-    ],
-  },
-  {
-    name: "react",
-    display: "React",
-    color: chalk.cyan,
-    variants: [
-      {
-        name: "react-ts",
-        display: "TypeScript",
-        color: chalk.blue,
-      },
-      {
-        name: "react-swc-ts",
-        display: "TypeScript + SWC",
-        color: chalk.blue,
-      },
-      {
-        name: "react",
-        display: "JavaScript",
-        color: chalk.yellow,
-      },
-      {
-        name: "react-swc",
-        display: "JavaScript + SWC",
-        color: chalk.yellow,
-      },
-    ],
-  },
-];
-
-const TEMPLATES = FRAMEWORKS.map((f) => {
-  return f.variants?.map((v) => v.name);
-}).reduce((a, b) => {
-  return a.concat(b);
-}, []);
 
 const argv = minimist<{ template?: string; help?: boolean }>(
   process.argv.slice(2),
@@ -85,65 +35,109 @@ const defaultTargetDir = "vite-project";
 
 async function init() {
   const argTargetDir = formatTargetDir(argv._[0]);
-  const argTemplate = argv.template || argv.t;
 
   let targetDir = argTargetDir || defaultTargetDir;
 
   let result: prompts.Answers<"projectName" | "framework" | "variant">;
 
-  try {
-    result = await prompts(
-      [
-        {
-          type: argTargetDir ? null : "text",
-          name: "projectName",
-          message: chalk.reset("Project name:"),
-          initial: defaultTargetDir,
-          onState: (state) => {
-            targetDir = formatTargetDir(state.value) || defaultTargetDir;
-          },
-        },
-        {
-          type:
-            argTemplate && TEMPLATES.includes(argTemplate) ? null : "select",
-          name: "framework",
-          message: chalk.reset("Select a framework:"),
-          initial: 0,
-          choices: FRAMEWORKS.map((framework) => {
-            const frameworkColor = framework.color;
-            return {
-              title: frameworkColor(framework.display || framework.name),
-              value: framework,
-            };
-          }),
-        },
-        {
-          type: (framework: Framework) =>
-            framework && framework.variants ? "select" : null,
-          name: "variant",
-          message: chalk.reset("Select a variant:"),
-          choices: (framework: Framework) =>
-            framework.variants.map((variant) => {
-              const variantColor = variant.color;
-              return {
-                title: variantColor(variant.display || variant.name),
-                value: variant.name,
-              };
-            }),
-        },
-      ],
-      {
-        onCancel: () => {
-          throw new Error(chalk.red("✖") + " Operation cancelled");
-        },
-      },
-    );
-  } catch (cancelled: any) {
-    console.log(cancelled.message);
-    return;
-  }
+  // try {
+  //   result = await prompts(
+  //     [
+  //       {
+  //         type: argTargetDir ? null : "text",
+  //         name: "projectName",
+  //         message: chalk.reset("Project name:"),
+  //         initial: defaultTargetDir,
+  //         onState: (state) => {
+  //           targetDir = formatTargetDir(state.value) || defaultTargetDir;
+  //         },
+  //       },
+  //       {
+  //         type:
+  //           argTemplate && TEMPLATES.includes(argTemplate) ? null : "select",
+  //         name: "framework",
+  //         message: chalk.reset("Select a framework:"),
+  //         initial: 0,
+  //         choices: FRAMEWORKS.map((framework) => {
+  //           const frameworkColor = framework.color;
+  //           return {
+  //             title: frameworkColor(framework.display || framework.name),
+  //             value: framework,
+  //           };
+  //         }),
+  //       },
+  //       {
+  //         type: (framework: Framework) =>
+  //           framework && framework.variants ? "select" : null,
+  //         name: "variant",
+  //         message: chalk.reset("Select a variant:"),
+  //         choices: (framework: Framework) =>
+  //           framework.variants.map((variant) => {
+  //             const variantColor = variant.color;
+  //             return {
+  //               title: variantColor(variant.display || variant.name),
+  //               value: variant.name,
+  //             };
+  //           }),
+  //       },
+  //     ],
+  //     {
+  //       onCancel: () => {
+  //         throw new Error(chalk.red("✖") + " Operation cancelled");
+  //       },
+  //     },
+  //   );
+  // } catch (cancelled: any) {
+  //   console.log(cancelled.message);
+  //   return;
+  // }
 
-  console.log(result);
+  result = {
+    projectName: "vite-project",
+    framework: {},
+    variant: "react-ts",
+  };
+
+  const { framework, variant } = result;
+  const root = path.resolve(process.cwd(), targetDir);
+  const templateDir = path.resolve(
+    fileURLToPath(import.meta.url),
+    "../../template",
+    `template-${variant}`,
+  );
+
+  // const write = () => {
+
+  // }
+
+  const renameFiles: Record<string, any> = {
+    _gitignore: ".gitignore",
+  };
+
+  const copyDir = (srcDir: string, destDir: string) => {
+    fs.mkdirSync(destDir, { recursive: true });
+    const dir = fs.readdirSync(srcDir);
+    dir.forEach((item) => {
+      const srcFile = path.resolve(srcDir, item);
+      const destFile = path.resolve(
+        destDir,
+        renameFiles[item] ? renameFiles[item] : item,
+      );
+      copy(srcFile, destFile);
+    });
+  };
+
+  const copy = (srcDir: string, destDir: string) => {
+    const stat = fs.statSync(srcDir);
+
+    if (stat.isDirectory()) {
+      copyDir(srcDir, destDir);
+    } else {
+      fs.copyFileSync(srcDir, destDir);
+    }
+  };
+
+  copy(templateDir, root);
 }
 
 init();
