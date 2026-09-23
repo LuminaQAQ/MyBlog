@@ -1,0 +1,19 @@
+{
+  "name": "@lumina-npm/cli",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@lumina-npm/core": "^1.0.0",
+    "chalk": "^6.0.0",
+    "commander": "^15.0.0"
+  }
+}
